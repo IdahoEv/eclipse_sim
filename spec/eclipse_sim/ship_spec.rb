@@ -5,6 +5,36 @@ module EclipseSim
   describe Ship do
     let :empty_ship do Ship.new end
 
+    describe :initiative do
+      subject do ship.initiative end
+
+      context "with 1 base initiative and a 1-initiative engine" do
+        let :ship do
+          ship = empty_ship
+          ship.base_initiative = 1
+          ship.add_engine(Engine.new(1))
+          ship
+        end
+        it {should == 2}
+      end
+      context "with 1 base initiative and a 2-initiative engine" do
+        let :ship do
+          ship = empty_ship
+          ship.base_initiative = 1
+          ship.add_engine(Engine.new(2))
+          ship
+        end
+        it {should == 3}
+      end
+      context "with default initiative and a 2-initiative engine" do
+        let :ship do
+          ship = empty_ship
+          ship.add_engine(Engine.new(2))
+          ship
+        end
+        it {should == 2}
+      end
+    end
 
     describe :computer_power do
       subject do
