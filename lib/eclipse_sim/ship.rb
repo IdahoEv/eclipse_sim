@@ -1,6 +1,7 @@
 module EclipseSim
   class Ship
-    attr_accessor :weapons, :computers, :shields, :hulls, :engines, :base_initiative
+    attr_accessor :weapons, :computers, :shields,
+      :hulls, :engines, :base_initiative
 
     def initialize
       @weapons   = []
@@ -8,6 +9,8 @@ module EclipseSim
       @shields   = []
       @hulls     = []
       @engines   = []
+      @type      = :interceptor
+      @damage    = 0
       @base_initiative = 0
     end
 
@@ -28,6 +31,14 @@ module EclipseSim
 
     def hull_strength
       hulls.reduce(0){ |sum, h| sum += h.strength }
+    end
+
+    def hit_points
+      hull_strength + 1 - @damage
+    end
+
+    def add_damage(damage)
+      @damage += damage
     end
 
     [:computer, :shield, :weapon, :engine, :hull].each do |component|

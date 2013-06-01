@@ -144,5 +144,34 @@ module EclipseSim
       end
     end
 
+    describe :hit_points do
+      subject do
+        ship.hit_points
+      end
+
+      context "with a single 1-strength hull" do
+        let :ship do
+          ship = empty_ship
+          ship.add_hull(Hull.new(1))
+          ship
+        end
+
+        it { should == 2}
+
+        context "after one point of damage" do
+          before do ship.add_damage(1) end
+          it { should == 1}
+        end
+
+        context "after two points of damage" do
+          before do ship.add_damage(2) end
+          it { should == 0}
+
+        end
+
+      end
+
+    end
+
   end
 end
