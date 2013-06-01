@@ -107,5 +107,42 @@ module EclipseSim
         it { should == 3 }
       end
     end
+
+    describe :hull_strength do
+      subject do
+        ship.hull_strength
+      end
+
+      context "with a single 1-strength hull" do
+        let :ship do
+          ship = empty_ship
+          ship.add_hull(Hull.new(1))
+          ship
+        end
+
+        it { should == 1}
+      end
+
+      context "with two 1-strength hulls" do
+        let :ship do
+          ship = empty_ship
+          ship.add_hull(Hull.new(1))
+          ship.add_hull(Hull.new(1))
+          ship
+        end
+
+        it { should == 2 }
+      end
+      context "with one 3-strength hull" do
+        let :ship do
+          ship = empty_ship
+          ship.add_hull(Hull.new(3))
+          ship
+        end
+
+        it { should == 3 }
+      end
+    end
+
   end
 end
