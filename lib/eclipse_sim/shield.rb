@@ -1,9 +1,9 @@
 module EclipseSim
   class Shield
-    attr_accessor :power
+    attr_accessor :strength
 
-    def initialize(power)
-      @power = power
+    def initialize(strength)
+      @strength = strength
     end
   end
 end

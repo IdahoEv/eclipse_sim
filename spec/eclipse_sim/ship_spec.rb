@@ -40,9 +40,42 @@ module EclipseSim
 
         it { should == 3 }
       end
+    end
 
+    describe :shield_strength do
+      subject do
+        ship.shield_strength
+      end
 
+      context "with a single 1-strength shield" do
+        let :ship do
+          ship = empty_ship
+          ship.add_shield(Shield.new(1))
+          ship
+        end
 
+        it { should == 1}
+      end
+
+      context "with two 1-strength shields" do
+        let :ship do
+          ship = empty_ship
+          ship.add_shield(Shield.new(1))
+          ship.add_shield(Shield.new(1))
+          ship
+        end
+
+        it { should == 2 }
+      end
+      context "with one 3-strength shield" do
+        let :ship do
+          ship = empty_ship
+          ship.add_shield(Shield.new(3))
+          ship
+        end
+
+        it { should == 3 }
+      end
     end
   end
 end

@@ -18,5 +18,14 @@ module EclipseSim
       computers.reduce(0){ |sum,c| sum += c.power }
     end
 
+    def add_shield(shield)
+      @shields << shield
+    end
+
+    def shield_strength
+      shields.reduce(0){ |sum,c| sum += c.strength }
+    end
+
+
   end
 end
