@@ -41,6 +41,10 @@ module EclipseSim
       @damage += damage
     end
 
+    def dead?
+      hit_points <= 0
+    end
+
     [:computer, :shield, :weapon, :engine, :hull].each do |component|
       define_method("add_#{component}") do |arg|
         instance_variable_get("@#{component}s") << arg

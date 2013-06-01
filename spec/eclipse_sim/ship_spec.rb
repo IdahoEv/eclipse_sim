@@ -144,10 +144,8 @@ module EclipseSim
       end
     end
 
-    describe :hit_points do
-      subject do
-        ship.hit_points
-      end
+    describe "hit_points and death" do
+      subject do ship end
 
       context "with a single 1-strength hull" do
         let :ship do
@@ -156,22 +154,23 @@ module EclipseSim
           ship
         end
 
-        it { should == 2}
+        its(:hit_points) { should == 2}
+        it { should_not be_dead }
 
         context "after one point of damage" do
           before do ship.add_damage(1) end
-          it { should == 1}
+          its(:hit_points) { should == 1}
+          it { should_not be_dead }
         end
 
         context "after two points of damage" do
           before do ship.add_damage(2) end
-          it { should == 0}
-
+          its(:hit_points) { should == 0}
+          it { should be_dead }
         end
-
       end
-
     end
+
 
   end
 end
