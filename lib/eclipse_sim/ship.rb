@@ -3,6 +3,8 @@ module EclipseSim
     attr_accessor :weapons, :computers, :shields,
       :hulls, :engines, :base_initiative
 
+    attr_reader :description
+
     def initialize
       @weapons   = []
       @computers = []
