@@ -4,10 +4,10 @@ require 'eclipse_sim/interceptor'
 
 module EclipseSim
   describe Fleet do
+    let :fleet do Fleet.new  end
 
     describe :ships do
 
-      let :fleet do Fleet.new  end
       let :interceptor do Interceptor.new end
       let :cruiser     do Cruiser.new end
 
@@ -28,6 +28,28 @@ module EclipseSim
         fleet.ships.should_not include(cruiser)
       end
 
+    end
+
+    describe :ship_groups do
+      let :interceptor_1 do Interceptor.new end
+      let :interceptor_2 do Interceptor.new end
+      let :cruiser     do Cruiser.new end
+
+      before do
+        fleet.add_ship(cruiser)
+        fleet.add_ship(interceptor_1)
+        fleet.add_ship(interceptor_2)
+      end
+
+      subject do fleet.ship_groups end
+
+      it { should be_a(Hash) }
+      it do
+        should == {
+          2 => [ cruiser ],
+          3 => [ interceptor_1, interceptor_2 ]
+        }
+      end
     end
 
   end

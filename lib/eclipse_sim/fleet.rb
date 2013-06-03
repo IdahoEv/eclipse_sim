@@ -13,5 +13,9 @@ module EclipseSim
     def destroy_ship(ship)
       ships.delete(ship)
     end
+
+    def ship_groups
+      ships.group_by(&:initiative)
+    end
   end
 end
