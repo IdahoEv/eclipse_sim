@@ -34,6 +34,15 @@ module EclipseSim
         end
         it {should == 2}
       end
+
+      context :add_defender_bonus do
+        it "should increase initiative by 0.5" do
+          expect do
+            empty_ship.add_defender_bonus
+          end.to change{ empty_ship.initiative }.by(0.5)
+        end
+
+      end
     end
 
     describe :computer_power do

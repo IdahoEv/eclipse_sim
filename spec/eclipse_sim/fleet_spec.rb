@@ -52,5 +52,19 @@ module EclipseSim
       end
     end
 
+    describe "a fleet with defender status" do
+      let :fleet do Fleet.new( :defender => true ) end
+      let :interceptor do Interceptor.new end
+      let :cruiser     do Cruiser.new end
+
+      it "should add defender bonus to ship initiative" do
+        interceptor.should_receive(:add_defender_bonus)
+        fleet.add_ship(interceptor)
+
+        cruiser.should_receive(:add_defender_bonus)
+        fleet.add_ship(cruiser)
+      end
+    end
+
   end
 end

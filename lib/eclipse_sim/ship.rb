@@ -43,6 +43,10 @@ module EclipseSim
       @damage += damage
     end
 
+    def add_defender_bonus
+      @base_initiative += 0.5
+    end
+
     def dead?
       hit_points <= 0
     end
