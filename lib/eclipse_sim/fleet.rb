@@ -9,5 +9,9 @@ module EclipseSim
     def add_ship(ship)
       ships << ship
     end
+
+    def destroy_ship(ship)
+      ships.delete(ship)
+    end
   end
 end
