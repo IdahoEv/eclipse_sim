@@ -1,0 +1,20 @@
+match:
+        1. create fleets
+        2. rounds
+                2.1 find highest-initiative surviving ship with initiative < threshold
+                2.2 roll dice
+                2.3 apply hits to enemy
+                2.4 remove & record casualites
+                2.5 check for win
+                2.6 repeat 2.1 - 2.6 until there are no unfired ships
+        3. repeat rounds until win condition
+
+Experiment
+        1. set up fleets
+        2. run match
+        3. record statistics
+        4. reset for another round
+                4.1 remove all damage from all ships
+        5. repeat 2-4 N times
+        6. report statistics
+
