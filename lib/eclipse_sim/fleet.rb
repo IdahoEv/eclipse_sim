@@ -21,5 +21,9 @@ module EclipseSim
     def ship_groups
       ships.group_by(&:initiative)
     end
+
+    def destroyed?
+      ships.all?(&:dead?)
+    end
   end
 end

@@ -66,5 +66,44 @@ module EclipseSim
       end
     end
 
+    describe :destroyed do
+      subject do fleet end
+
+      def living_ship_factory
+        mock(Ship, :dead? => false)
+      end
+      def dead_ship_factory
+        mock(Ship, :dead? => true)
+      end
+
+      context "when no ships are dead" do
+        before do
+          fleet.add_ship(living_ship_factory)
+          fleet.add_ship(living_ship_factory)
+          fleet.add_ship(living_ship_factory)
+        end
+        it { should_not be_destroyed }
+      end
+
+      context "when some ships are dead" do
+        before do
+          fleet.add_ship(living_ship_factory)
+          fleet.add_ship(dead_ship_factory)
+          fleet.add_ship(dead_ship_factory)
+        end
+        it { should_not be_destroyed }
+      end
+
+      context "when all ships are dead" do
+        before do
+          fleet.add_ship(dead_ship_factory)
+          fleet.add_ship(dead_ship_factory)
+          fleet.add_ship(dead_ship_factory)
+        end
+        it { should be_destroyed }
+      end
+
+    end
+
   end
 end
