@@ -56,7 +56,7 @@ module EclipseSim
 
     # TODO: A smarter hit application algorithm
     def apply_hits(target_fleet, dice)
-      while ( die = dice.pop )
+      while ( die = dice.shift )
         print "\t\tApplying dieroll: #{die}"
         target_ships = target_fleet.living_ships.sort_by(&:hit_points)
         hittable_ships = target_ships.select{ |ship| die.can_hit?(ship) }

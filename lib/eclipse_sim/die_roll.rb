@@ -19,7 +19,7 @@ module EclipseSim
     end
 
     def self.set_roller(roller)
-      @roller = roller
+      @@roller = roller
     end
 
     class RandRoller
