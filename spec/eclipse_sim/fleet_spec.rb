@@ -30,24 +30,30 @@ module EclipseSim
 
     end
 
-    describe :ship_groups do
+    describe :firing_groups do
       let :interceptor_1 do Interceptor.new end
-      let :interceptor_2 do Interceptor.new end
-      let :cruiser     do Cruiser.new end
+      let :interceptor_2 do
+        int = Interceptor.new
+        int.stub(:dead?){ true }
+        int
+      end
+      let :interceptor_3 do Interceptor.new end
+      let :cruiser       do Cruiser.new     end
 
       before do
         fleet.add_ship(cruiser)
         fleet.add_ship(interceptor_1)
         fleet.add_ship(interceptor_2)
+        fleet.add_ship(interceptor_3)
       end
 
-      subject do fleet.ship_groups end
+      subject do fleet.firing_groups end
 
       it { should be_a(Hash) }
       it do
         should == {
           2 => [ cruiser ],
-          3 => [ interceptor_1, interceptor_2 ]
+          3 => [ interceptor_1, interceptor_3 ]
         }
       end
     end

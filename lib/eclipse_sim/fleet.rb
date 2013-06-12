@@ -18,8 +18,8 @@ module EclipseSim
       ships.delete(ship)
     end
 
-    def ship_groups
-      ships.group_by(&:initiative)
+    def firing_groups
+      ships.select{|s| !s.dead?}.group_by(&:initiative)
     end
 
     def destroyed?
