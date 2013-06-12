@@ -29,5 +29,9 @@ module EclipseSim
     def reset_damage!
       ships.each(&:reset_damage!)
     end
+
+    def living_ships
+      ships.select(&:alive?)
+    end
   end
 end

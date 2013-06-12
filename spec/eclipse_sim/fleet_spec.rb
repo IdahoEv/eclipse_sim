@@ -72,15 +72,15 @@ module EclipseSim
       end
     end
 
+    def living_ship_factory
+      mock(Ship, :dead? => false, :alive? => true )
+    end
+    def dead_ship_factory
+      mock(Ship, :dead? => true, :alive? => false )
+    end
+
     describe :destroyed do
       subject do fleet end
-
-      def living_ship_factory
-        mock(Ship, :dead? => false)
-      end
-      def dead_ship_factory
-        mock(Ship, :dead? => true)
-      end
 
       context "when no ships are dead" do
         before do
@@ -108,6 +108,29 @@ module EclipseSim
         end
         it { should be_destroyed }
       end
+    end
+
+    describe :living_ships do
+      subject do fleet.living_ships end
+      let :alive_1 do living_ship_factory end
+      let :alive_2 do living_ship_factory end
+      let :alive_3 do living_ship_factory end
+      let :dead_1 do dead_ship_factory end
+      let :dead_2 do dead_ship_factory end
+      let :dead_3 do dead_ship_factory end
+
+      before do
+        fleet.add_ship(alive_1)
+        fleet.add_ship(alive_2)
+        fleet.add_ship(alive_3)
+        fleet.add_ship(dead_1)
+        fleet.add_ship(dead_2)
+        fleet.add_ship(dead_3)
+      end
+
+      it { should have(3).ships }
+      it{ should include(alive_1, alive_2, alive_3) }
+      it{ should_not include(dead_1, dead_2, dead_3) }
 
     end
 

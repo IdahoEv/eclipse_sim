@@ -55,6 +55,10 @@ module EclipseSim
       hit_points <= 0
     end
 
+    def alive?
+      !dead?
+    end
+
     [:computer, :shield, :weapon, :engine, :hull].each do |component|
       define_method("add_#{component}") do |arg|
         instance_variable_get("@#{component}s") << arg

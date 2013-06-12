@@ -25,12 +25,13 @@ module EclipseSim
         current_initiative = initiatives.pop
         firing_group, target_fleet = get_firing_group_and_target(initiatives.pop, fleet_firing_groups)
         dice = dice_for_group(firing_group)
-
-
-        # roll dice for current ship group
-        # apply any hits to enemies
-        # check for victory
+        apply_hits(target_fleet, dice)
       end
+    end
+
+    def apply_hits(dice, target_fleet)
+      target_ships
+
     end
 
     def dice_for_group(group)
