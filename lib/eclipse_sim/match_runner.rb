@@ -1,14 +1,12 @@
 module EclipseSim
   class MatchRunner
 
-    def set_fleets(fleet_a, fleet_b)
-      @fleet_a = fleet_a
-      @fleet_b = fleet_b
+    def set_fleets(fleet_array)
+      @fleets = fleet_array
     end
 
     def reset
-      @fleet_a.reset_damage
-      @fleet_b.reset_damage
+      @fleets.each(&:reset_damage!)
     end
 
     def run
@@ -19,11 +17,10 @@ module EclipseSim
     end
 
     def execute_round
-      firing_groups = [ @fleet_a.firing_groups, @fleet_b.firing_groups ]
-
+      firing_groups = @fleets.map(&:firing_groups)
       initiatives = firing_groups.map(&:keys).flatten.sort
 
-      until all_ships_have_fired?(groups_a, groups_b)
+      until all_ships_have_fired?(firing_groups)
 
         current_initiative = initiatives.pop
         firing_group, target = get_firing_group_and_target(initiatives.pop, groups)
@@ -40,9 +37,9 @@ module EclipseSim
     # return the currently firing ship group, and the fleet they are targeting
     def get_firing_group_and_target(initiative, groups)
       if groups[0].has_key?(initiative)
-        return groups[0].delete(initiative), @fleet_b
+        return groups[0].delete(initiative), @fleets[1]
       elsif groups[1].has_key?(initiative)
-        return groups[1].delete(initiative), @fleet_a
+        return groups[1].delete(initiative), @fleets[0]
       end
     end
 

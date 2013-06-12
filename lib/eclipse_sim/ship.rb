@@ -43,7 +43,7 @@ module EclipseSim
       @damage += damage
     end
 
-    def reset_damage
+    def reset_damage!
       @damage = 0
     end
 

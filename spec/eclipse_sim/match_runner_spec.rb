@@ -9,7 +9,7 @@ module EclipseSim
 
     describe :get_firing_group_and_target do
       before do
-        match_runner.set_fleets(fleet_a, fleet_b)
+        match_runner.set_fleets([fleet_a, fleet_b])
       end
       let :group_a do
         { 1 => [ :foo ],

@@ -26,8 +26,8 @@ module EclipseSim
       ships.all?(&:dead?)
     end
 
-    def reset_damage
-      ships.each(&:reset_damage)
+    def reset_damage!
+      ships.each(&:reset_damage!)
     end
   end
 end
