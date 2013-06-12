@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module EclipseSim
   describe DieRoll do
-
     let :weapon do Weapon.new(2) end
     let :ship do   Cruiser.new end
 
@@ -10,19 +9,35 @@ module EclipseSim
       DieRoll.new(weapon, ship)
     end
 
-    it "should get the weapon's damage" do
-      weapon.should_receive(:damage).and_return(5)
-      die_roll.damage.should == 5
+    describe :initialization do
+
+      it "should get the weapon's damage" do
+        weapon.should_receive(:damage).and_return(5)
+        die_roll.damage.should == 5
+      end
+
+      it "should get the ship's computer power as bonus" do
+        ship.should_receive(:computer_power).and_return(3)
+        die_roll.computer_power.should == 3
+      end
+
+      it "should call rand() and set the value accordingly" do
+        Kernel.stub!(:rand).and_return(5)
+        die_roll.value.should == 5
+      end
     end
 
-    it "should get the ship's computer power as bonus" do
-      ship.should_receive(:computer_power).and_return(3)
-      die_roll.computer_power.should == 3
+    describe :can_hit? do
+      let :target_ship do Cruiser.new end
+
+      context 'on a natural six' do
+        before do
+        end
+
+      end
+
+
     end
 
-    it "should call rand() and set the value accordingly" do
-      Kernel.stub!(:rand).and_return(4)
-      die_roll.value.should == 5
-    end
   end
 end

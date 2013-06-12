@@ -5,7 +5,7 @@ module EclipseSim
     def initialize(weapon, ship)
       @damage = weapon.damage
       @computer_power = ship.computer_power
-      @value = Kernel.rand(6) + 1
+      @value = Kernel.rand(1..6)
     end
   end
 end
