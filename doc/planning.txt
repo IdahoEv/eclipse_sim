@@ -22,3 +22,8 @@ Experiment
         5. repeat 2-4 N times
         6. report statistics
 
+
+action costs (human):
+  1 - move <= 3 ships
+  1 - build 2 ships
+  1 - upgrade 2 items

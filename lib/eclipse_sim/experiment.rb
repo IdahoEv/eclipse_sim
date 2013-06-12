@@ -10,7 +10,7 @@ module EclipseSim
     def run
       reset_experiment
       @runner.set_fleets(fleet_array)
-      iterations.times do
+      @iterations.times do
         reset_match
         @runner.run
         accumulate_data

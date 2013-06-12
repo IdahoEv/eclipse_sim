@@ -1,0 +1,29 @@
+:defender:
+  :ships: A
+
+:attackers:
+- :ships: I
+- :ships: II
+- :ships: III
+- :ships: IIII
+- :ships: IIIII
+- :ships: IIIIII
+- :ships: C
+- :ships: CC
+- :ships: CCC
+- :ships: CCCC
+- :ships: D
+- :ships: DD
+- :ships: IC
+- :ships: IIC
+- :ships: ICC
+- :ships: IIC
+- :ships: ID
+- :ships: IID
+- :ships: IDD
+- :ships: IID
+- :ships: CD
+- :ships: CCD
+
+
+
