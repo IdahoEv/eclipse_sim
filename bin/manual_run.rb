@@ -12,6 +12,7 @@ f2.add_ship(EclipseSim::Cruiser.new)
 f2.add_ship(EclipseSim::Cruiser.new)
 
 runner = EclipseSim::MatchRunner.new
+runner.verbose = true
 runner.set_fleets([f1,f2])
 runner.run
 

@@ -1,6 +1,7 @@
 module EclipseSim
   class MatchRunner
 
+    attr_accessor :verbose
     def initialize
       @rounds = 0
       @fleets = []
@@ -36,18 +37,10 @@ module EclipseSim
       report_round
       fleet_firing_groups = @fleets.map(&:firing_groups)
       require 'pp'
-      #pp fleet_firing_groups
       initiatives = fleet_firing_groups.map(&:keys).flatten.sort
       until all_ships_have_fired?(fleet_firing_groups)
-
-        #puts "INITIATIVE LIST: #{initiatives}"
         current_initiative = initiatives.pop
-
-        #puts "CURRENT INITIATIVE: #{current_initiative}"
-
         firing_group, target_fleet = get_firing_group_and_target(current_initiative, fleet_firing_groups)
-        #puts "\n\n FIRING GROUP:"
-        #pp firing_group
         report_volley(current_initiative, firing_group)
         volley = dice_for_group(firing_group)
         apply_hits(target_fleet, volley)
@@ -57,15 +50,15 @@ module EclipseSim
     # TODO: A smarter hit application algorithm
     def apply_hits(target_fleet, dice)
       while ( die = dice.shift )
-        print "\t\tApplying dieroll: #{die}"
+        print "\t\tApplying dieroll: #{die}" if @verbose
         target_ships = target_fleet.living_ships.sort_by(&:hit_points)
         hittable_ships = target_ships.select{ |ship| die.can_hit?(ship) }
         if hittable_ships == []
-          puts "... miss"
+          puts "... miss" if @verbose
           next
         else
           hit_ship = hittable_ships.first
-          puts "... hit for #{die.damage} on #{hit_ship}"
+          puts "... hit for #{die.damage} on #{hit_ship}" if @verbose
           hit_ship.add_damage(die.damage)
           raise Victory if target_fleet.destroyed?
         end
@@ -96,12 +89,14 @@ module EclipseSim
 
 
     def report_round
+      return unless @verbose
       puts "\n\nROUND ##{@rounds}:"
       puts "Fleet #1 #{@fleets[0].description} has #{@fleets[0].ships.length} ships remaining"
       puts "Fleet #2 #{@fleets[1].description} has #{@fleets[1].ships.length} ships remaining"
     end
 
     def report_volley(initiative, group)
+      return unless @verbose
       puts "\tBeginning volley: initiative #{initiative}"
       puts "\tFiring group: "+ group.map(&:to_s).join(", ")+"\n"
     end
