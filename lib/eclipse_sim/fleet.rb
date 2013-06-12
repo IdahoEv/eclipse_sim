@@ -1,7 +1,7 @@
 module EclipseSim
   class Fleet
     attr_reader :ships
-    attr_accessor :description, :opponent
+    attr_accessor :description
     def initialize(options = {})
       @ships = []
       @defender = options[:defender]
@@ -24,6 +24,10 @@ module EclipseSim
 
     def destroyed?
       ships.all?(&:dead?)
+    end
+
+    def reset_damage
+      ships.each(&:reset_damage)
     end
   end
 end

@@ -43,6 +43,10 @@ module EclipseSim
       @damage += damage
     end
 
+    def reset_damage
+      @damage = 0
+    end
+
     def add_defender_bonus
       @base_initiative += 0.5
     end

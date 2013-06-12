@@ -4,6 +4,10 @@ match:
                 2.1 find highest-initiative surviving ship with initiative < threshold
                 2.2 roll dice
                 2.3 apply hits to enemy
+                        2.3.1 For each die:
+                        2.3.2 find enemies that can be hit
+                        2.3.3 apply hit to lowest-HP of that set
+                        2.3.4 If HP tied, apply hit to first in list
                 2.4 remove & record casualites
                 2.5 check for win
                 2.6 repeat 2.1 - 2.6 until there are no unfired ships
