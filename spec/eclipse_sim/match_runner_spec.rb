@@ -67,8 +67,40 @@ module EclipseSim
         let :groups_b do { 2 => [ mock(Ancient) ] } end
         it { should be_false }
       end
+    end
+
+    describe :dice_for_group do
+      let :weapons_1 do [ Weapon.new(2), Weapon.new(1)] end
+      let :ship_1 do
+        ship = Cruiser.new
+        ship.stub!(:weapons).and_return(weapons_1)
+        ship.stub!(:computer_power).and_return(2)
+        ship
+      end
+      let :weapons_2 do [ Weapon.new(2), Weapon.new(1)] end
+      let :ship_2 do
+        ship = Cruiser.new
+        ship.stub!(:weapons).and_return(weapons_2)
+        ship.stub!(:computer_power).and_return(2)
+        ship
+      end
+
+      let :group do
+        [ ship_1, ship_2 ]
+      end
+
+      subject do
+        MatchRunner.new.dice_for_group(group)
+      end
+
+      it { should be_an(Array) }
+      it { should have(4).dice }
+      its(:first) { should be_a(DieRoll) }
+
+
 
     end
+
 
   end
 end

@@ -23,8 +23,8 @@ module EclipseSim
       until all_ships_have_fired?(fleet_firing_groups)
 
         current_initiative = initiatives.pop
-        firing_group, target = get_firing_group_and_target(initiatives.pop, fleet_firing_groups)
-
+        firing_group, target_fleet = get_firing_group_and_target(initiatives.pop, fleet_firing_groups)
+        dice = dice_for_group(firing_group)
 
 
         # roll dice for current ship group
@@ -33,6 +33,13 @@ module EclipseSim
       end
     end
 
+    def dice_for_group(group)
+      group.map do |ship|
+        ship.weapons.map do |weapon|
+          DieRoll.new(weapon, ship)
+        end
+      end.flatten
+    end
 
     # return the currently firing ship group, and the fleet they are targeting
     def get_firing_group_and_target(initiative, groups)

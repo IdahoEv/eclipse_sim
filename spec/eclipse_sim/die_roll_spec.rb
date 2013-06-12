@@ -29,11 +29,69 @@ module EclipseSim
 
     describe :can_hit? do
       let :target_ship do Cruiser.new end
+      let :computer_shield_matrix do
+        [[0,0], [1,0], [2,0], [3,0],
+          [0,1], [1,1], [2,1], [3,1],
+          [0,2], [1,2], [2,2], [3,2],
+          [0,3], [1,3], [2,3], [3,3]]
+      end
+
+      context 'on a natural one' do
+        before do Kernel.stub!(:rand).and_return(1) end
+
+        it 'hits on all values of computer and shield' do
+          computer_shield_matrix.each do |cs|
+            ship       .stub!(:computer_power) .and_return(cs[0])
+            target_ship.stub!(:shield_strength).and_return(cs[1])
+            DieRoll.new(weapon, ship).can_hit?(target_ship).should be_false
+          end
+        end
+      end
+
+      context 'on a natural four' do
+        before do Kernel.stub!(:rand).and_return(4) end
+
+        it 'hits on all values of computer and shield' do
+          computer_shield_matrix.map do |cs|
+            ship       .stub!(:computer_power) .and_return(cs[0])
+            target_ship.stub!(:shield_strength).and_return(cs[1])
+            DieRoll.new(weapon, ship).can_hit?(target_ship)
+          end.should == [
+            false, false, true,  true,
+            false, false, false, true,
+            false, false, false, false,
+            false, false, false, false,
+          ]
+        end
+      end
+
+      context 'on a natural five' do
+        before do Kernel.stub!(:rand).and_return(5) end
+
+        it 'hits on all values of computer and shield' do
+          computer_shield_matrix.map do |cs|
+            ship       .stub!(:computer_power) .and_return(cs[0])
+            target_ship.stub!(:shield_strength).and_return(cs[1])
+            DieRoll.new(weapon, ship).can_hit?(target_ship)
+          end.should == [
+            false, true,  true,  true,
+            false, false, true,  true,
+            false, false, false, true,
+            false, false, false, false,
+          ]
+        end
+      end
 
       context 'on a natural six' do
-        before do
-        end
+        before do Kernel.stub!(:rand).and_return(6) end
 
+        it 'hits on all values of computer and shield' do
+          computer_shield_matrix.each do |cs|
+            ship       .stub!(:computer_power) .and_return(cs[0])
+            target_ship.stub!(:shield_strength).and_return(cs[1])
+            DieRoll.new(weapon, ship).can_hit?(target_ship).should be_true
+          end
+        end
       end
 
 
