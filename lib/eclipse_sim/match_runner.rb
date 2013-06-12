@@ -17,13 +17,13 @@ module EclipseSim
     end
 
     def execute_round
-      firing_groups = @fleets.map(&:firing_groups)
-      initiatives = firing_groups.map(&:keys).flatten.sort
+      fleet_firing_groups = @fleets.map(&:firing_groups)
+      initiatives = fleet_firing_groups.map(&:keys).flatten.sort
 
-      until all_ships_have_fired?(firing_groups)
+      until all_ships_have_fired?(fleet_firing_groups)
 
         current_initiative = initiatives.pop
-        firing_group, target = get_firing_group_and_target(initiatives.pop, groups)
+        firing_group, target = get_firing_group_and_target(initiatives.pop, fleet_firing_groups)
 
 
 
