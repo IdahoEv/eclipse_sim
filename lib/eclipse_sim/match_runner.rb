@@ -19,10 +19,17 @@ module EclipseSim
     end
 
     def execute_round
-      firing_groups_a = @fleet_a.ship_groups
-      firing_groups_b = @fleet_b.ship_groups
+      firing_groups_a = @fleet_a.firing_groups
+      firing_groups_b = @fleet_b.firing_groups
+
+      initiatives = (firing_groups_a.keys + firing_groups_b.keys).sort
 
       until all_ships_have_fired?(groups_a, groups_b)
+
+        current_initiative = initiatives.pop
+
+
+
         # iterate all ship groups by initiative
         # roll dice for current ship group
         # apply any hits to enemies
@@ -31,6 +38,16 @@ module EclipseSim
     end
 
 
+    # return the currently firing ship group, and the fleet they are targeting
+    def get_firing_group_and_target(initiative, groups_a, groups_b)
+      if groups_a.has_key?(initiative)
+        group = groups_a.delete(initiative)
+        return group, @fleet_b
+      elsif groups_b.has_key?(initiative)
+        group = groups_b.delete(initiative)
+        return group, @fleet_a
+      end
+    end
 
     def all_ships_have_fired?(a, b)
       a.empty? and b.empty?
@@ -41,6 +58,7 @@ module EclipseSim
     end
 
     class Victory < Exception
+      attr_accessor
     end
 
   end
