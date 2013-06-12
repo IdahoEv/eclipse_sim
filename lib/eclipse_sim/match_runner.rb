@@ -13,6 +13,7 @@ module EclipseSim
 
     def reset
       @fleets.each(&:reset_damage!)
+      @rounds = 0
     end
 
     def run
