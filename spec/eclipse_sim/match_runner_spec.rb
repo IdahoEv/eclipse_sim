@@ -7,7 +7,7 @@ module EclipseSim
     let :fleet_a do Fleet.new end
     let :fleet_b do Fleet.new end
 
-    describe :get_firing_group do
+    describe :get_firing_group_and_target do
       before do
         match_runner.set_fleets(fleet_a, fleet_b)
       end

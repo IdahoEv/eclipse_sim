@@ -41,11 +41,9 @@ module EclipseSim
     # return the currently firing ship group, and the fleet they are targeting
     def get_firing_group_and_target(initiative, groups_a, groups_b)
       if groups_a.has_key?(initiative)
-        group = groups_a.delete(initiative)
-        return group, @fleet_b
+        return groups_a.delete(initiative), @fleet_b
       elsif groups_b.has_key?(initiative)
-        group = groups_b.delete(initiative)
-        return group, @fleet_a
+        return groups_b.delete(initiative), @fleet_a
       end
     end
 
