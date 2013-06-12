@@ -16,6 +16,9 @@ module EclipseSim
       @base_initiative = 0
     end
 
+    def to_s
+      self.class.name.split('::').last + " " + ('-' * @damage) + ('*' * self.hit_points)
+    end
 
     def computer_power
       computers.reduce(0){ |sum,c| sum + c.power }

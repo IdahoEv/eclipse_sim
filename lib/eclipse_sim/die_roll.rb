@@ -12,5 +12,9 @@ module EclipseSim
       @value == 6 or
       (@value + computer_power - target.shield_strength >= 6)
     end
+
+    def to_s
+      "#{@value}(+#{@computer_power})" + '*' * damage
+    end
   end
 end

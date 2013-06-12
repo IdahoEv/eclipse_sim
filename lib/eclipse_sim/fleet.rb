@@ -33,5 +33,9 @@ module EclipseSim
     def living_ships
       ships.select(&:alive?)
     end
+
+    def to_s
+      description
+    end
   end
 end
