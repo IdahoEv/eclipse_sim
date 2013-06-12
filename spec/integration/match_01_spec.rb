@@ -35,7 +35,7 @@ module EclipseSim
         DieRoll.set_roller(DieRoll::FixedRoller.new([1,3,5,2,4,5,1,2,1]))
       end
       its(:victor) { should == player_fleet }
-      its(:outcome) do pending
+      its(:outcome) do
          should == {
           :victor => player_fleet,
           :rounds => 3,
@@ -58,8 +58,7 @@ module EclipseSim
         DieRoll.set_roller(DieRoll::FixedRoller.new([1,1,5,2,6,6]))
       end
       its(:victor) { should == ancient_fleet }
-      its(:outcome) do pending
-         should == {
+      its(:outcome) do should == {
           :victor => ancient_fleet,
           :rounds => 4,
           :loss_count => [0, 2]

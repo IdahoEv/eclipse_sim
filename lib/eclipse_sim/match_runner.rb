@@ -103,6 +103,10 @@ module EclipseSim
 
 
     def outcome
+      { :victor => victor,
+        :rounds => @rounds,
+        :loss_count => @fleets.map{|f| f.ships.select(&:dead?).length }
+      }
     end
 
     class Victory < Exception
