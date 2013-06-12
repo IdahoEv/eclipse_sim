@@ -21,7 +21,7 @@ module EclipseSim
       end
 
       context "when the initiative is found in group_a" do
-        subject do match_runner.get_firing_group_and_target(2, group_a, group_b) end
+        subject do match_runner.get_firing_group_and_target(2, [group_a, group_b]) end
         it { should ==  [ [:bar, :baz], fleet_b] }
         it "should remove the found group from the groups hash" do
           subject
@@ -33,7 +33,7 @@ module EclipseSim
         end
       end
       context "when the initiative is found in group_b" do
-        subject do match_runner.get_firing_group_and_target(2.5, group_a, group_b) end
+        subject do match_runner.get_firing_group_and_target(2.5, [group_a, group_b]) end
         it { should ==  [ [:ancient], fleet_a] }
         it "should remove the found group from the groups hash" do
           subject
@@ -49,7 +49,7 @@ module EclipseSim
     describe :all_ships_have_fired? do
 
       subject do
-        match_runner.all_ships_have_fired?(groups_a, groups_b)
+        match_runner.all_ships_have_fired?([groups_a, groups_b])
       end
 
       context "when given enpty hashes" do

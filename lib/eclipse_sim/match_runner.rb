@@ -19,18 +19,17 @@ module EclipseSim
     end
 
     def execute_round
-      firing_groups_a = @fleet_a.firing_groups
-      firing_groups_b = @fleet_b.firing_groups
+      firing_groups = [ @fleet_a.firing_groups, @fleet_b.firing_groups ]
 
-      initiatives = (firing_groups_a.keys + firing_groups_b.keys).sort
+      initiatives = firing_groups.map(&:keys).flatten.sort
 
       until all_ships_have_fired?(groups_a, groups_b)
 
         current_initiative = initiatives.pop
+        firing_group, target = get_firing_group_and_target(initiatives.pop, groups)
 
 
 
-        # iterate all ship groups by initiative
         # roll dice for current ship group
         # apply any hits to enemies
         # check for victory
@@ -39,16 +38,16 @@ module EclipseSim
 
 
     # return the currently firing ship group, and the fleet they are targeting
-    def get_firing_group_and_target(initiative, groups_a, groups_b)
-      if groups_a.has_key?(initiative)
-        return groups_a.delete(initiative), @fleet_b
-      elsif groups_b.has_key?(initiative)
-        return groups_b.delete(initiative), @fleet_a
+    def get_firing_group_and_target(initiative, groups)
+      if groups[0].has_key?(initiative)
+        return groups[0].delete(initiative), @fleet_b
+      elsif groups[1].has_key?(initiative)
+        return groups[1].delete(initiative), @fleet_a
       end
     end
 
-    def all_ships_have_fired?(a, b)
-      a.empty? and b.empty?
+    def all_ships_have_fired?(groups)
+      groups.all?(&:empty?)
     end
 
 
